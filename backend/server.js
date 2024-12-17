@@ -1,11 +1,29 @@
-const express = require('express')
-const cors = require('cors')
+const experss = require('express')
 const dotenv = require('dotenv')
-dotenv.config
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
+const http = require('http')
+const DBConnection = require('./config/dbConnection')
+const userRouter = require('./routers/user.router')
+dotenv.config()
+DBConnection()
 
-const app = express()
-const PORT = process.env.PORT || 8000;
+const app = experss()
+const PORT = process.env.PORT
 
-app.listen(PORT, ()=>{
-    console.log(`Server is running on port ${PORT}`)
+const server = http.createServer(app)
+
+app.use(experss.json())
+app.use(cookieParser())
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true,
+};
+app.use(cors(corsOptions))
+
+app.use('/api/auth/user', userRouter)
+
+app.listen(PORT, () => {
+  console.log(`Server is running on Port ${PORT}`)
 })
