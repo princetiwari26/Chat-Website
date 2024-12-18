@@ -8,7 +8,8 @@ function App() {
     <NotificationProvider>
       <Router>
         <Routes>
-          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </Router>
     </NotificationProvider>
